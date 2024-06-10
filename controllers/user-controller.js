@@ -3,7 +3,7 @@ const { User, Thought } = require("../models");
 module.exports = {
     async getUsers(req, res){
         try {
-            const users = await User.findAll();
+            const users = await User.find();
             res.json(users);
         }catch (err){
             res.status(500).json(err);
@@ -64,7 +64,7 @@ module.exports = {
         try {
             const friend = await User.findOneAndUpdate(
                 { _id: req.params.userId },
-                { $addToSet: { tags: req.body }},
+                { $addToSet: { friends: req.params.friendId }},
                 { runValidators: true, new: true }
             );
 
@@ -80,19 +80,16 @@ module.exports = {
     async deleteFriend(req, res){
         try {
             const friend = await User.findOneAndUpdate(
-                { _id: req.params.userId },
+                { _id: req.params.userId, friends: req.params.friendId },
                 { $pull: { friends: req.params.friendId } },
                 { runValidators: true, new: true }
             );
             if(!friend){
                 return res.status(400).json({ message: 'No users with this id' });
             }
-            res.json(friend, {message: 'friend successfully removed!'});
+            res.json(friend);
         } catch (err){
             res.status(500).json(err);
         }
     }
 }
-
-// addFriend,
-// deleteFriend
