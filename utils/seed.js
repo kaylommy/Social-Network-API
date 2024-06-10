@@ -5,7 +5,8 @@ const { User, Thought, Reaction } = require("../models");
 const users = [
     {
         "username": "lernantino",
-        "email": "lernantino@gmail.com"
+        "email": "lernantino@gmail.com",
+        "thought": [],
     },
 ];
 
