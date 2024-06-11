@@ -1,6 +1,7 @@
 const { User, Thought } = require("../models");
 
 module.exports = {
+    // get all users
     async getUsers(req, res){
         try {
             const users = await User.find();
@@ -9,6 +10,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    // get one user
     async getSingleUser (req,res){
         try {
             const user = await User.findOne({ _id: req.params.userId });
@@ -21,6 +23,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    // create user
     async createUser(req, res){
         try {
             const user = await User.create(req.body);
@@ -29,6 +32,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    //update a user by id
     async updateUser(req, res){
         try {
             const user = await User.findOneAndUpdate(
@@ -46,6 +50,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    // delete a user with id
     async deleteUser(req, res) {
         try {
           const user = await User.findOneAndDelete({ _id: req.params.userId });
@@ -63,12 +68,13 @@ module.exports = {
           return res.status(500).json(err);
         }
       },
+      // add a friend 
     async addFriend(req, res){
         try {
             const friend = await User.findOneAndUpdate(
-                { _id: req.params.userId },
-                { $addToSet: { friends: req.params.friendId }},
-                { runValidators: true, new: true }
+                { _id: req.params.userId }, // find by userId
+                { $addToSet: { friends: req.params.friendId }}, // add the friends userId
+                { runValidators: true, new: true } // run validators
             );
 
         if(!friend){
@@ -80,10 +86,11 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    // delete friend by id
     async deleteFriend(req, res){
         try {
             const friend = await User.findOneAndUpdate(
-                { _id: req.params.userId, friends: req.params.friendId },
+                { _id: req.params.userId, friends: req.params.friendId }, // finds by userId and the friends userId
                 { $pull: { friends: req.params.friendId } },
                 { runValidators: true, new: true }
             );
