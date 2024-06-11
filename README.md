@@ -5,6 +5,9 @@
   
   - [Installation](#installation)
   - [Usage](#usage)
+
+  ## Video Link
+  https://drive.google.com/file/d/1W1M46ORtPDBWxZi0vDZj901Xp5twsjZ1/view?usp=sharing
   
   ## Description
   This homework assignment was to create a social network api with express, mongoDB, mongoose and node. We set up CRUD routes to create users, find users by id, deleted users and update a user. You can also share posts or thoughts, react to others thoughts, add friends, and remove friends.
